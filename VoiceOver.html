@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Text to Speech - Plugin</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .speak-area {
+      border: 1px solid #ccc;
+      padding: 5px;
+      float: left;
+      width: 50%;
+    }
+
+    .speak-area h1 {
+      float: left;
+      padding-right: 5px;
+      font-size: 18px;
+    }
+
+    .speak-area .speakTxt {
+      display: inline-block;
+      background: #000;
+
+      border-radius: 100%;
+    }
+
+    .speak-area .speakTxt.active {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .speak-area svg {
+      padding: 5px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="speak-area">
+      <h1>Text 1</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 2</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 3</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 4</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 5</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 6</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 7</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 8</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>Text 9</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="speak-area">
+      <h1>‘Benoy? I don’t have time for this. Her mom has been calling me since the morning; she’s
+freaking out. Where is she?’
+‘I don’t know what you’re talking about, Deb!’
+‘What? You left with her last night. Don’t you fucking remember?’
+He started looking everywhere and I followed him around; he was clearly freaking out
+and was out of his goddamn mind.
+‘No! I do not,’ I insisted.
+‘Did you guys come home? You said you would drop her at her friend’s place?’
+Deb’s phone was ringing constantly.
+‘I don’t remember, Deb. All I remember is that we were there in the club and you guys
+were there too, and then I woke up on this couch. That’s it!’
+‘You were on the couch? Then where the hell is she?’ he demanded and sprinted up the
+stairs. I still had no clue as to what was happening.
+‘PALAK?’ he shouted and entered the bedroom.
+As I followed him into my bedroom, and tried to remember the sequence of events from
+the previous night, I saw him bent over an unconscious girl who lay on the side of my bed.
+Palak! We both helped her sit up on the bed. She was still falling all over us and she stank
+of beer.
+‘Huh?’ Palak looked up, still not in her senses.
+‘PALAK. Wake up!’ Deb said. ‘Your mom called me up. She wants to know where you
+are. Where is your phone?’ Deb kept repeating these sentences.
+‘Benoy? Don’t just stand there. Get her some water!’
+‘Fine,’ I said and sprinted downstairs.
+As I came back upstairs, I saw Palak mumble something. I was in a state of mild shock! I
+really had not expected this, even from myself. I had no memory of getting a girl home. It
+was not really the first time though, but usually I remember.
+‘Where is my phone? What did Mom say? Is she angry? Does he know? Did he call?’she
+asked a million questions. I tried to avoid her gaze as I looked for a room freshener. She
+stank.
+She was freaking out, and she held her head. I stood there wondering whether it was in
+regret or if it was the hangover. I wanted to ask her, but I thought it would be better to let
+Deb handle it. He had been in a relationship for over five years now. He had more
+experience in handling crying females than me.
+‘Relax, Palak, don’t cry. I told your mom that you were with Avantika. And that you’re
+fine. You really don’t remember where your phone is?’ he asked her.
+She shook her head and tears streamed down her cheeks in full flow. Thank God for Deb!
+‘Okay, just go wash your face and then I will drop you home,’ Deb said to her and she
+left.
+‘Benoy? Are you CRAZY?’ Deb almost shouted.
+‘What, Dada? She is your friend not mine. I can’t help it if she is crazy.’
+‘She is not supposed to be here. You got her here. You are the one who is crazy, not her.
+And what would I say to Avantika? You have screwed me, man!’
+‘Why are you so afraid of Avantika?’ I asked.
+‘I am not. I just like not to screw up things with her,’ Deb said.
+‘Whatever, I am sorry,’ I said. ‘Do you want me to drop her home?’
+‘No, I will do it. Anyway, how is your hangover? Better?’ he asked, concerned. I nodded;
+he was my brother after all. He even looked like me. He was just a shade shorter than me,
+but he never agreed on that. We weren’t the best-looking people in the world, but we had
+something in common—a dimple, a facial deformity, and it was probably the only good
+thing about us. Lately, we had been working out together to get ourselves a perfect set of
+abs, but till then, we were sexually very unappealing.
+‘Can we go?’ Palak gulped, as she stood at the bedroom door, still crying softly.
+‘Sure.’
+https://t.me/magazineandbookpdf
+She was yet to exchange a single word with me or establish eye contact with me. Deb
+helped her down the stairs. Bai looked at her, surprised.
+‘Bye, Palak,’ I said as those two were leaving through the door.
+She did not say anything, just looked at me and gave me a half-hearted smile.
+‘I am fine,’ Palak told Deb as she got inside Deb’s car.
+‘I am going to talk to you later about this, Benoy. All this nonsense has to stop,’ Deb said
+as he opened his car door. ‘And this is the last time I am going to help you with your
+crushes.’
+We shook hands and he said, ‘And one more thing, Benoy. Go to the kitchen or
+somewhere. She just said she puked in your house last night. And she is sorry about it.’
+Fuck! Fuck her! Fuck her! Crush? Bullshit.
+Well, at least I could drink again. Later, I found her cell phone in the kitchen. I had no
+intention of returning it. She had puked in my house.
+
+CHAPTER TWO
+The morning did not start well. I had cleaned up someone else’s puke and the smell was still
+somewhere in my head. I had images of her puking in my sink going through my mind all
+morning and she was no longer cute to me! Filthy.
+All this while, my phone kept ringing. It was Eshaan and he kept calling incessantly. I had
+a ground rule—never answer Eshaan’s call until he calls you for the sixth time. If he
+called less than five times then it had to be something frivolous.
+It had been one year in Hindu College, Delhi University, and there had not been a single
+day that he had not called me to let me know about the scheduled lectures, the extra classes,
+the extra notes that I might need, et cetera. My default state was to ignore his calls. I picked
+up the sixth call.
+‘Why don’t you pick up my calls?’ Eshaan said angrily.
+‘I was a little stuck,’ I said. ‘What happened?’
+‘Okay. Next time, please pick it up the first time,’ he said. Yeah, right!
+Eshaan told me that a tax-planning professor was less than impressed about being offered
+money (by Dad) to mark my internal exam paper (I had decided to leave the answer booklet
+blank) a little leniently. The professor wanted to talk to me in person now.
+‘Your father cannot buy everything!’ Eshaan had said once.
+He was not quite right. My father was a wealthy man. I was born with a silver spoon in
+my mouth, or diamond. You get the drift. My bank accounts were always loaded; credit-card
+bills were never a problem. The car I drove, the house I lived in, it was all his but still
+mine.
+Last year, when I had screwed up my board exams and it looked like it would be hard to
+get into a Delhi University college, I had called up my father. Next day, I was a Delhi
+squash champion, and I got admission in BCom (Honours) through the sports quota. Not bad
+at all, was it? I did not hate studying, but when you have everything, education is never the
+top priority.
+My father was kind to me but not without reason. My parents were divorced and we were
+never on talking terms. He was a stranger to me, and I was brought up fatherless since I was
+eight. I did not miss him. Until a year ago, till the time Mom was alive, he had some point of
+contact in the family. However, when she lost her battle to cancer last year, he had no one
+left. The car, the house, the gym—all these were his attempts to buy me. I was greedy
+enough to let him buy things, but not as much to sell myself.
+I drove all the way to college to meet the honest, upright, asshole professor of mine. Why
+couldn’t he just accept the money and shut up? I always assumed that professors are poorly
+paid. Why would he turn down extra money?
+‘Have you thought about what you will say?’ Eshaan asked as soon I got down from my
+car.
+‘No. He wants to meet me, right? He wants to talk, not me,’ I said as I walked towards the
+professor’s offices.
+‘Benoy. Listen.’
+Eshaan was always full of motherly advice. Nevertheless, I could not ignore Eshaan
+either. If there was anything I knew about BCom, it was through him. Well, not just BCom:
+he had my back for everything.
+‘Yes, Eshaan?’
+‘Just go in and tell him that you weren’t well and you had to go home. Tell him you
+passed all the other exams … and that your dad was just concerned about your future, that’s
+why he—’
+‘Eshaan? Why don’t you go and talk to him?’ I joked.
+‘I did.’
+Despite the frequency, his over-involvement in my life never ceased to amaze me.
+‘I just asked him what the issue was and he said he would only talk to you,’ he said. ‘I am
+sorry.’
+Eshaan was asking for my forgiveness because he could not unscrew what I had screwed
+up. He was such a darling! Had I been a girl, I would have kissed him and hugged him.
+Well, maybe not.
+‘No, man. It’s fine. I will handle it,’ I said.
+‘If there is any problem, just call me. I will be in Kamla Nagar. Okay?’
+‘Sonil?’ I asked him.
+‘Yes,’ he said, as I saw him blush a little.
+Relationships, I tell you, they totally fuck up even the sanest of men. He had started dating
+a girl from Daulat Ram College. It had been a year and he was nuts about her. Eshaan was
+charming, smiled more than necessary, cared more than necessary, was unnecessarily fair
+and was immensely likeable. He was cute, like a little brother, like a panda. It often went
+against him. He was often too cute for any girl.
+I wished Sonil would see that, too. I hated her. She thought I was a vain, ill-behaved, rich
+brat, and an asshole. She had asked Eshaan to stay away from me, but Eshaan wasn’t that
+stupid.
+I walked through the corridors, smiling at every face that I came across. I recognized a
+few faces and a few of them recognized me. Last year, I had joined college with much
+fanfare. I drove big cars to college, argued with seniors and professors alike. Very soon, I
+was infamous in the college for my behaviour and unabashed abuse of the power I wielded.
+After a few days, people got busy and they promptly forgot about my existence.
+Mom’s condition had worsened and her chemotherapy sessions had started. I had to be
+with her. She had left her job and her condition deteriorated with every passing day.
+Doctors had not given her much time. I wanted to spend every waking second with her. She
+had started losing herself to cancer and it became infuriatingly tough for me. I had always
+seen her as a strong woman, who brought me up as a single mother—managed work and a
+worthless son. It was torturous to see her like that—frail, weak, losing weight and hair
+every day, vomiting and crying. Even behind those smiles she faked, I could see what she
+was going through.
+‘Benoy?’she had said.
+‘Yes, Maa.’
+‘Take care when I’m not there.’ She had smiled at me.
+‘Don’t say that,’ I had said to her, with tears in my eyes. I had never imagined my life
+without her. ‘You will be fine.’
+I was lying to myself. Every single day, I saw her going through the pain. Little by little, I
+saw her die. I heard her in agony every day and wished I could take it away. When I used to
+sit on the cold, hard bench of the hospital and hear her cry, I wished that she would go
+peacefully rather than go through the excruciating pain every day.
+I would look at the life-support equipment that kept her alive and think, It’s just making it
+harder for her. It was my mom on the bed. She deserved better. She had done nothing to
+deserve this pain.
+Finally, the day came when she left me behind. It was a very hard time for me. When my
+mom passed away, I stopped going to college. I had prepared myself for the loss, but
+nothing prepares you for death, nothing prepares you for absence. With her death, a small
+part of me died too. I did not cry for days. I lived in denial. I thought I would wake up some
+day and find her caressing my hair.
+It had become impossible to live any longer in that house. The silence used to drive me
+crazy. Even months after her death, I used to go downstairs after a good night’s sleep and
+look for her in the kitchen. I used to leave water bottles everywhere, thinking that she would
+be there to put them back in the fridge. I used to shout at nights, asking her for dinner only to
+realize that she was no longer there.
+I used to remember all those times when my mother wanted to talk to me after a long day
+at her office and I used to be too busy on the phone with my friends. I used to regret every
+such moment. The uncelebrated Mother’s Days. The birthdays I was not there with her. I
+used to feel embarrassed when Mom used to hug me in public. However, in that empty
+house, and in my empty life, I could have done anything to have her rest my head on her
+shoulder and put me to sleep. I loved my mom and I missed her every day. She left a huge
+void in my life. She was everything to me, my only family.
+I underwent therapy and Deb’s mom started to take care of me. Over this period, I had
+started to drink and smoke heavily. I did everything to fill up the emptiness in my life.
+Nothing worked. After the person I had loved the most died in my own arms, everything else
+stopped to matter. It took me a few months to get back to normal.
+I crossed a line of staff offices with different names on them. Finally, I saw the name in
+bold letters—Dr S.K. Ashra (Tax Planning). I knocked on the door and the voice from the
+other side asked me to come in.
+‘Good morning, sir,’ I said.
+‘Sit down, Benoy,’ he said politely.
+I was pleasantly surprised as I had expected him to blast me. That is what he had called
+me for, right? Eshaan had told me he had a reputation of being nasty with students. He was
+forty-five but looked older. With his short stature, small paunch and unintelligent looks, I
+would have guessed him to be a government clerk and not a professor. It was hard to
+believe that he had turned down a bribe. He looked like someone who would have
+mattresses stuffed with money from bribes.
+‘Thank you, sir.’
+‘Umm, I noticed that you did not give your tax exam,’ he asked while sipping at his tea
+from the chipped teacup.
+‘Yes, sir.’
+‘Why?’ he asked.
+‘Sir, I wasn’t well,’ I said, half-heartedly. I did not want to lie. I just wanted him to
+accept the money and get lost.
+‘So? You left the paper empty?’ he asked.
+‘Yes, sir,’ I said.
+‘You know that you can fail this subject unless you really do well in the finals,’ he said,
+and leaned on the table.
+‘Yes, sir,’ I said, uninterestedly. I added as an afterthought, ‘Sir, what can be done?’
+The conversation started to sound like I was avoiding a speeding ticket from a constable.
+I felt like the girl who lifts her skirt in the porn movies to get an ‘A’ from the old, sexstarved professor. If it was anything like that, it was going perfectly for me. Now, I just
+hoped he wanted money, and not me. That would have been weird.
+‘Umm,’ he said, ‘your father called yesterday.’
+‘I know,’ I said. ‘I am sorry about that.’
+‘No, no, no!’ he said, his voice suddenly turned super polite. ‘Your father is a big man!
+That he called me was an honour in itself.’
+‘Ohhh, is it?’ I said. I wondered if he was being sarcastic.
+I knew the look in his eyes. It was greed. It seemed he did not want the money. He
+wanted something more. After ten minutes, during which I totally lost any respect for the
+professor, I walked out of the room. I checked my phone and it had thirteen missed calls
+from Eshaan. He was tenser about the entire situation than I was. Eshaan always thought of
+me as a lost soul, and maybe after what happened in the first year, I was. Since I did not
+have any real friends in college, he always took it upon himself to see to it that I was not
+bored or feeling out of place there.
+‘Benoy?’ he asked when I called him. ‘How did it go?’
+‘It went well,’ I said. ‘I did what you asked me to. I cried a little, begged him to score
+me, and then he said he would give me the average marks for the exam.’
+‘See. I told you!’ he said, genuine happiness dripping from his voice. ‘Not everything can
+be bought!’ he said again.
+‘Yes. You told me,’ I said.
+I did not tell him what really happened. After I cut the call, I did what I hated doing the
+most—calling up Dad. These calls were important and I could not run away from them.
+These paid for my life.
+‘Hello?’ I called him up.
+‘Benoy? How are you?’ my father said from the other side.
+‘Remember the tax-planning professor?’ I asked.
+‘Yes, yes, the exam that you missed.’
+‘He lost your number.’
+‘Oh!’
+‘He wants more. He has kids studying abroad,’ I said.
+I was right. Bedroom mattresses stuf ed with money. Eshaan was wrong. My father could
+buy everything.
+
+CHAPTER THREE
+‘Aunty! Not any more,’ I said, as Deb’s mom put another spoonful of rice on my plate. Aunty
+had lived her life for only two purposes.
+The first was to get Deb fat. She had been trying to do that since forever. She had almost
+succeeded when Deb touched eighty-five kilograms when he was in college, but he had lost
+all that weight now. His mom is still fighting the depression she suffered during Deb’s
+weight loss.
+The second was to get him married to a Bengali girl in true Bengali style. After being the
+bride’s mom twice, she desperately wanted to be the groom’s mom once. However, Deb had
+crushed her dreams when he told his parents he would be marrying Avantika, a Punjabi girl.
+And since Deb wouldn’t be accepted at Avantika’s place, there would be no wedding. Her
+mom had reacted as if someone had died. She is still in shock.
+‘Why don’t you give Deb some?’ I protested. ‘His plate is almost empty.’
+‘I don’t know what he is doing,’ his mom said irritably. ‘He keeps saying no carbs, no oil,
+and spends hours in the gym. I really don’t get what you youngsters try to do.’
+‘We try to live longer and stay fit, that’s it, Maa,’ he said.
+‘Fit? My foot! Anyway, Benoy, which coaching classes are you joining?’
+‘Coaching classes? For what?’ I said. I really did not like where the conversation was
+heading.
+‘I mean if you decide to do management, you would have to enrol for some coaching
+classes right now, wouldn’t you, beta?’
+I don’t know why she was so concerned about it. I thought it was because she wanted me
+to feel that I was cared for, and loved.
+‘It’s too early. I haven’t decided,’ I said and stuffed my face with food so that I would not
+have to talk.
+‘Deb? Didn’t you enrol in the two-year course too?’she asked and Deb nodded.
+‘He was dating Avantika then! He hardly studied for it. And he took three attempts to
+crack it,’ I protested.
+‘Whatever,’ Deb said.
+‘Let him do what he wants to,’said Deb’s dad, who was quietly reading his newspaper
+up until then. I often wondered if his brother, my dad, would be like him, too.
+‘I made that mistake with Deb and look what he has done. He’s marrying a Punjabi girl!
+Not even a wedding. Chhee,’she said, angry and dejected at the same time.
+‘Calm down,’ Uncle said.
+‘I don’t have a problem with Avantika but at least there should be a wedding,’she said,
+and it looked like she was choking on her tears.
+‘Calm down. They are not yet getting married,’ Uncle said.
+I could see that Deb did not like the conversation. Avantika and Deb were not seeing each
+other any more. However, they were still very much in love. Avantika and Deb had had a
+strange relationship over the years. They were the ideal couple for very many years until the
+time they entered college at MDI, Gurgaon, and things started to go downhill. Deb, drunk
+and out of his senses, cheated on Avantika, and Avantika had walked out.
+After the break-up, Deb had spent months in Mumbai, without a job, trying to convince
+her to come back. Avantika did not budge. She had still not changed her mind despite all of
+Deb’s efforts. Deb had never discussed his problems with Avantika with us. His eyes were
+stuck to the television, and it was apparent that he did not want to talk about her.
+‘Can we talk about something other than her?’ Deb said.
+‘Anything other than my academic plans. Wedding plans will do! And don’t worry, Aunty;
+I will get married to a Bengali girl. The kind of girl you will like,’ I said.
+‘Sure he will,’ Deb said sarcastically.
+‘I will,’ I said and looked at Aunty.
+She smiled her widest and I was happy that I had said that. It is strange how moms just
+care about two things in their kids’ lives—food and marriage. If you do these two things
+correctly, it will be Mother’s Day for them every day.
+Soon, after that, his parents left.
+‘Benoy? Never bring up Avantika in front of Mom. You know how she reacts,’ he said
+angrily.
+‘I am sorry,’ I said. ‘Anyway, did you ask Palak?’
+After that incident, I had asked Deb to ask Palak if we had made out that day. Or kissed! I
+was just a little curious. I wanted to know if something had happened and whether I should
+call her and apologize. She was pretty after all and I had been single for too long.
+‘Nothing happened between the two of you. I had been a fool to ask you to drop her!
+Avantika had advised against it. I should have listened to her.’
+‘She didn’t want Palak to go with me? Why?’
+‘Avantika likes you. But Palak has a boyfriend, and we didn’t want something to go
+wrong. Avantika thinks you sleep around!’
+‘Firstly, I don’t sleep around and, secondly, I didn’t know she had a guy,’ I said in my
+defence.
+Sleep around? I had not dated anyone in more than a year now. I was too involved with
+Mom, and the last girl I had dated was in school and we broke up when she shifted to
+Australia for her graduation. I had had crushes on girls, but things had not worked out. I had
+been too preoccupied.
+I remembered, when I was fifteen, Deb used to tell me stories about all his flings and
+relationships. All this was before Avantika came around and straightened everything out.
+Avantika was an incredibly beautiful female. I still have the text Deb had first sent me when
+I asked him about Avantika after their first meeting.
+She is so hard to describe, Benoy. Those limpid, wet, black eyes screamed for love.
+There is nothing better than a melancholic beautiful face. The moonlight that
+reflected of her perfectly sculpted face seemed the only light illuminating the place.
+Somebody was standing with a blower nearby to get her streaked hair to cover her
+face so that she could look sexier managing it. She had the big eyes of a month-old
+child, big and screaming for attention. A perfectly crafted nose, flawless bright-pink
+lips and a milky-white complexion that would put Photoshop to shame. Oh hell, she
+is way out of my league. She is a goddamn goddess. I just could not look beyond her
+face. I think I am in love.
+He has been in love ever since. I envied him. Deep down, I wanted something like what
+he shared with Avantika.
+Deb was the one who had exposed me to relationships, make-outs and flings, and he was
+often surprised at my non-existent love life. He often thought that I was lying. Since he had
+slept around back in his day, he thought I had done that, too. Deb often said that if he had my
+kind of money, cars and everything else, he would be dating Deepika Padukone. But then
+again, I was not that rich. I did not own an airline. Or have a British accent.
+
+CHAPTER FOUR
+‘What happened?’ I asked Eshaan. I had picked him up from his house that day. He had
+called me more than twelve times that morning so it had to be important. He was tense and
+his face was red.
+‘I am sorry,’ he said. ‘There is a problem.’
+‘Now what did I do?’
+‘Nothing, it is all my fault,’ he said. ‘Can you drive a little faster?’
+‘Fine, but at least tell me what did you do?’
+‘You know we have a subject—macroeconomics and foreign exchange?’
+‘Yes, yes, I do,’ I said. ‘The old, skinny professor … what about it?’
+‘That old, skinny professor left the college and a younger one replaced him. He was a
+director at some management college before this, so he is extraordinarily strict. He divided
+us into groups and assigned us project work.’
+‘So? I am in your group, right?’ I said.
+‘Yes, you were, but not any more. Diya, the group leader, sent the list to sir without
+adding your name. We have the presentations today, and all the other groups are full.’
+‘I don’t have a group?’
+‘Yes.’
+‘And how important is this presentation?’ I asked him, still not taking interest.
+‘He said he would fail or pass students according to their performance in this
+presentation.’
+‘Can he do that?’ I asked.
+‘Yes.’
+‘Fuck,’ I said. ‘So can’t I just stand with your group and tell him there was a
+miscommunication. Anyway, one of the groups had to have one extra member, right?’
+‘I talked to Diya and she refused. You know how she is,’ he said.
+‘No! I do not know how she is,’ I said, frustrated. ‘I don’t even know who she is!’
+‘Don’t worry, we will talk to her. If not, we will talk to sir.’
+Eshaan was back in his element. It was my problem and he was still using the word ‘we’
+as if it was his problem as well. We reached college and headed directly for our class. It
+had been really long since I had last gone there.
+‘Who is Diya?’ I asked Eshaan as I scanned all the faces.
+‘There,’ he pointed to a girl who was excitedly explaining something to a group of
+students.
+I walked up to her, with Eshaan right by my side, and said, ‘Diya?’
+‘Yes?’she said. ‘You are?’
+Diya, as I later learned, had topped the class last year. However, she was not happy about
+it because she had not made it to the university toppers’ list. She was sixth on it. It was a
+terrible tragedy. Ever since she had joined college, she had had a one-point agenda. She
+had to get into the London School of Economics (LSE) with a full scholarship. She was the
+geek queen and she looked like it—dull clothes, big spectacles and her curly hair all over
+the place, the perfect picture of a full-scholarship student.
+‘Hi! I am Benoy,’ I said. ‘I was supposed to be in your group.’
+All the students around her looked at me strangely. Man! These guys did not even know I
+was a part of their class. I could have asked Dad to get me through this class as well, but I
+wanted to avoid calling him again at any darned cost.
+‘Your name was not on the list. We are already seven people,’she said. People in her
+group nodded obediently.
+‘But, Diya?’ Eshaan said.
+‘Yes, Eshaan?’ Diya countered sternly.
+For the first time I saw Eshaan a little off his game. Usually, given Eshaan’s fair, cute,
+kid-like face, no one really argued with him but Diya did. Diya’s voice boomed at him and
+it was arrogant and confident, as if it came from amplifiers in her throat. She stared directly
+at the two of us, like a witch, and we were scared as shit. I have never felt at home with
+intelligent and confident women; they have never found me funny or smart. Why would
+anyone love them? They only make you feel stupid and inadequate all the time.
+‘I had mailed his name to you and you said you would put his name in,’ he argued.
+‘And I replied that I would look into it. I checked and we were seven students in the
+group already. I mailed the work division to all the members. You should have checked that
+then,’she almost said it as if it was Eshaan’s fault.
+In the back of my mind, I was already feeling terrible because it seemed I would have to
+ask my dad to buy this professor too. I was proving to be a very expensive kid.
+‘Okay, there seems to be some misunderstanding,’ I said. ‘I will just stand with the group
+when you give your presentation. We will tell him that we forgot to put my name in. What
+about that?’
+‘What? Benoy, right?’she said, clearly not looking pleased at my idea. ‘Look, I am the
+group leader and I was responsible for sending the names to sir,’she had now started
+tapping her finger vigorously on her laptop, ‘and I will not accept that I did something
+wrong.’
+Diya had really started to piss me off. Little Miss Perfect.
+‘Fine then. Let Eshaan be the leader then. He will accept the mistake,’ I said.
+‘Yes, I will do it,’ Eshaan said.
+She looked angry now, her nostrils were flaring and her eyes were bloodshot. I guessed
+she had burst a nerve or two inside. I wanted to step back a little. Just in case.
+‘Why?’ She said, ‘I did all the work and what if sir asks questions? I will not put the
+whole group at risk just for you.’
+I was almost shocked at how nerdy and headstrong this girl was. I did not know what to
+say.
+‘C’mon, Diya,’ Eshaan said.
+‘What? I just won’t allow it. Now, if you are done, we have to revise,’she said and
+looked away from us.
+‘You know what?’ I said and she looked at me. ‘You can take the project and shove it up
+your tight ass for all I care.’
+I cannot say I was not scared as I said that. It looked like she would throw her laptop at
+my face. Thankfully, she did not. I did not want my face to get any uglier. I walked away. As
+I strode outside the class, I could hear Diya shout at Eshaan and tell him what a horrible guy
+I was. I did not care. Well, the others in the group just asked, ‘Who is he? Never seen him
+in class!’
+
+CHAPTER FIVE
+A little later, we all sat in the class, and she was still right there. Her nostrils still looked
+like caves and the big eyes behind those spectacles looked at me as if they were trying to
+blow me up. She had a striking resemblance to the lizard on the ceiling that watched me just
+as she did.
+‘So, what do we have lined up for today?’ the professor asked. He was younger and he
+definitely looked sharper than the other professors who taught us.
+‘Project presentations,’ one of the students said. I have never understood these students.
+Why do they have to go ahead and remind teachers that they had to screw us?
+‘I am glad you remember them,’ he said. ‘I went through all of them. How do you guys
+think you did in your projects?’ he asked very harmlessly.
+The answers ranged from okay to good to could-have-been-better. I looked at Diya with
+a cold stare although her eyes were stuck on the professor. Freaking nerd girl.
+‘Good? Excellent?’ he said, smiling. ‘PATHETIC! Just pathetic!’ he shouted suddenly.
+I had always considered that my ears were impervious to any nonsense from teachers and
+professors, but this professor was loud. Windows shattered, guys pissed in their pants and
+people broke out of their daydreams.
+‘Do you call those unformatted pieces of shit presentations? I cannot believe this is the
+state of affairs at one the most prestigious graduate colleges in India. No wonder you guys
+never make it to management colleges and those students from engineering colleges do.
+DISGRACEFUL!’
+He started to hurt where it hurt the most. No commerce student wanted to be compared to
+an engineering student and be told that he or she was less intelligent or brainy.
+‘But, sir,’ Diya interrupted, ‘we—’
+‘Diya, right?’ he said. ‘You think you did any better? All you did was copy-paste from
+websites. Only numbers! Where was the analysis? I asked for a study. What did you think
+your numbers meant? Who all were in the group with you? Stand up,’ he shouted.
+Everyone in the group stood up, and I stood up too. I wanted to add salt to Diya’s
+wounds. I wanted to make it worse for her. I wanted to stomp on her. Bloody lizard. The
+professor looked at all of us. He counted. The veins in his eyes had turned red and thick in
+anger.
+‘Eight of you?’ he said. ‘Wasn’t I clear enough that one group wouldn’t have more than
+seven people, Diya? You were the group leader, right? Terrible.’
+‘Sir,’ her voice was now not even half as confident as it was before, ‘he is not a part of
+our group.’ She pointed towards me like a little school-going child.
+‘You are not?’ He turned to me. ‘I have never seen you in class before. Do you even come
+to college?’
+‘I had some problems at home,’ I said.
+‘Anyway, what is she saying? Are you a part of this group or not?’
+‘Sir,’ I explained, ‘I was a part of their group but she kicked me out without informing me
+and I did not know when this presentation was. So, I didn’t take part in the presentation
+too.’
+‘And you say it’s her fault?’
+‘No, sir, it was mine, too. But I was meant to be a part of this group,’ I said, as politely as
+I could.
+‘NO, he was NOT!’she shouted, and though the class was shocked at her loud outburst, it
+almost brought a smile to my face. I could almost see tears in her eyes. Yes! I pumped my
+fist. Take that, bitch. Lizard. Bitchy Lizard.
+‘Shut up, you two. Look at the two of you. What do you think this is? First grade?
+Everyone in the class will repeat their projects. You will choose new topics and I will send
+you the guidelines this time. And you two, yes, you will form a new group and only you two
+will work on the project.’
+‘But, sir? I cannot work with him,’she protested. ‘He doesn’t even come to college. He is
+irresponsible and brash.’
+She stood there, helpless. Her desperation was extreme. Life is so fair. She was now
+stuck with a lazy, incompetent guy! Oh, that’s me. Shit.
+‘That’s not my problem,’ he said. ‘Although, Benoy, please don’t think that your dad can
+make a call and you will pass this subject. That will not happen. Do you get it?’
+Fuck him. Life is so unfair. Later, he added he could ask either of us to present and we
+would be marked as a group. Therefore, if I were to screw up, Diya would get a zero, too. It
+was a foolproof plan to screw us up. He said he would ensure the external examiners did
+not score our final papers.
+For the rest of the period, he kept harping on about how disciplined and intelligent
+students are in IIT Delhi, the college from where he graduated. He said he was appalled at
+the quality of students outside colleges like the IITs, DCEs and NITs. He was pissing off
+everybody in the class. Up your ass, I wanted to say.
+I should have been worried but I was happy that the arrogant girl got screwed with me as
+well; her shoulders had drooped and her face had lost its colour. As soon as the class
+ended, Diya started to look for me. I hid behind a big group of students and left the class
+with them.
+Fuck her, but yes, I was scared too.</h1>
+      <a href="javascript:;" class="speakTxt">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.039"
+          height="22.822" viewBox="0 0 28.039 22.822">
+          <image id="speaker-filled-audio-tool" width="28.039" height="22.822"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAABHNCSVQICAgIfAhkiAAAA+dJREFUWEfNmGmoTVEUx92QzDMZ4n0wZgoZylBkzvAMH3hJEcos8/TJPMYzJnNIyTyEUKY8MoS8SJQvvJJLHr49w/9/O+e2rPYZ9nlH965a3bPXXWud39lnn7WHRElyRJkskTxwtIDuhRaZmBJZArsYcOsdwK/4bQX9pIHjhK2P5AOhj6CvLN/Wb/gnRMwbXLf8X7A9kfgytJpzg3b4fWkBfBO+fZX/TrRnSVscPTvVGWcy72Y0FlrA1oYve7OWiumM9lPXVlrY7frpncQb8ctxaCMd4PxMBbxFu3kcsOeQxKuUrMF/K2xIHd9N+F2g4niPC7RF6dkcxF2EtvWB8YJdjpih0LvQRR7xrAJ1xX+vcd06Cmw/5ykrBvSaCXY2YvJF3DpcLzPkmQDbEWXvgfZ9m56diYAdIV+tCdb0xbPH2HNavsBQUxgP4HpyWNh9dA4JSjcT7CDYr6gcj9HuYsjLCUJ+oEkODRe2LBp1nKA/Irg6rg9B+RpsxGvM7kKS6SpRH7RvKVt7tJ8rW3fCcsBzPq5ngC1vQyh8vWDLwYfTaRXhewPX/Q33+QBbQ2GfT9gfMFSOCOUV5le6ViFIljW+SU4KfAgpJ9AYKwzHCFsCA4dBnOIHyzlff1TDYWM5lMIyt1oYCghbDEPVOEmRK2hS0K94CWI2KIbxaB8VtneZgr0OCNZsV1gSWYelDEDjmjAkMwV7ChCjBQgrziQF2xvt28L2PVOwel2xH1BTFCx7nm/AleJMwT4BQScBwklgqYIdhfZpYSvKROmqBABOpxUECNfEnCWlzECDC3BXCgkrZyzlH7npVw1Yps6rzFzLvlA2LnrkR3eVsH7r0qi0frB3kLSXSPwR140MN3oIW1dh30JYToEroXJqo88vaA0ox46teMF2Q6IHKtlatDkBSOGa5DOUbK7khVl1jYH3SajcfQbBm2C5HiiENhHB3NUSjFO+FJ4hHFe2BmFgGdMGegmaE0Tp/G+CZV1lfZXCCuCeF0i7HiocEqlVV8j7pxY7HN9y5vGKNcHy4EKeJ3DKbWxI0BS298o+F+18G1g3fhsu5gQ8odeYHYI4bmd+QvmqNRTTnoGOFPlZrbhr+BYFlnm4a9B1UfIHLWS8nrUj/kifEzhOvA/rcKTdrXsj9hKHhWmBbvrCA15G6m8edKTPCZwAljWWt1LBMr4ZlOtQjkcpW9GYF4ZO+OzG9TQVw3OE9JY96jCQOblwJ/BgYeQ+a48FbC58zyp/1ll5flDqnpX5eb41DFoA5ZjmDiSsHITjROXMWe6etMXRs2GB/Pw4rbKWusJtOM/L/pFsgSUUl4zjoJzlDpue7C8dGAAHy3+bNgAAAABJRU5ErkJggg==" />
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <!-- partial -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $('.speakTxt').on("click", function () {
+      $('.speakTxt').removeClass('active')
+      var texttoread = $(this).parent('.speak-area').find('h1').text();
+      $(this).toggleClass('active')
+      console.log(texttoread);
+      var speech = new SpeechSynthesisUtterance();
+      // Set the text and voice attributes.
+      speech.text = texttoread;
+      speech.volume = 1;
+      speech.rate = 1;
+      speech.pitch = 1;
+
+      window.speechSynthesis.speak(speech);
+    });
+  </script>
+
+</body>
+
+</html>
